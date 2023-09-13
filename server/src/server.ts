@@ -1,13 +1,16 @@
 import { fastify } from 'fastify'
-import { prisma } from './lib/prisma'
+import cors from '@fastify/cors'
+import { promptRoutes } from './routes/prompt'
+import { uploadRoutes } from './routes/upload'
 
 const app = fastify()
 
-app.get('/prompts', async () => {
-  const prompts = await prisma.prompt.findMany()
-
-  return { prompts }
+app.register(cors, {
+  origin: '*'
 })
+
+app.register(promptRoutes)
+app.register(uploadRoutes)
 
 app
   .listen({ port: 3333, host: '0.0.0.0' })
