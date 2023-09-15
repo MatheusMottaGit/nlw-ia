@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { createReadStream } from "node:fs";
 import { openai } from '../lib/openai'
 
-export async function transcripionRoutes(app: FastifyInstance) {
+export async function transcriptionRoutes(app: FastifyInstance) {
   app.post('/videos/:videoId/transcription', async (request) => {
     const paramsSchema = z.object({
       videoId: z.string().uuid()
